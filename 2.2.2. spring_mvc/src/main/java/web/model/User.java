@@ -11,7 +11,7 @@ import javax.validation.constraints.Size;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 3, max = 30, message = "Name should be between 2 and 30 characters")
@@ -36,11 +36,11 @@ public class User {
         this.email = email;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

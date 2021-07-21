@@ -7,11 +7,15 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import web.repository.UserRepository;
+
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -19,10 +23,11 @@ import java.util.Properties;
 @EnableTransactionManagement
 @PropertySource(value = "classpath:db.properties")
 @ComponentScan(value  ="web")
+@EnableJpaRepositories(basePackageClasses ={UserRepository.class})
 public class HibernateConfig {
-    @Autowired
     private Environment environment;
 
+    @Autowired
     public HibernateConfig(Environment environment) {
         this.environment = environment;
     }
@@ -63,5 +68,10 @@ public class HibernateConfig {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
         transactionManager.setEntityManagerFactory(getEntityManagerFactory().getObject());
         return transactionManager;
+    }
+
+    @Bean
+    public PersistenceExceptionTranslationPostProcessor persistenceExceptionTranslator() {
+        return new PersistenceExceptionTranslationPostProcessor();
     }
 }

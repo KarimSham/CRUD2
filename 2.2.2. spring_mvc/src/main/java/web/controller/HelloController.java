@@ -17,6 +17,9 @@ import java.util.List;
 public class HelloController {
     private DAO dao;
 
+    public HelloController() {
+    }
+
     @Autowired
     public HelloController(DAO dao) {
         this.dao = dao;
@@ -53,12 +56,12 @@ public class HelloController {
     }
 
     @DeleteMapping("/people/{id}")
-    public String deletePerson(@PathVariable("id") int id){
+    public String deletePerson(@PathVariable("id") Long id){
         dao.removeUserById(id);
         return "redirect:/people";
     }
     @GetMapping("/people/{id}/edit")
-    public String edit (@ModelAttribute("id") int id,Model model){
+    public String edit (@ModelAttribute("id") Long id,Model model){
         model.addAttribute("user",dao.getUserById(id));
         return "view/edit";
     }

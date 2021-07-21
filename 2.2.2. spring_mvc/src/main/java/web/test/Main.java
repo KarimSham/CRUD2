@@ -11,5 +11,6 @@ public class Main {
         HibernateDAO hibernateDAO = context.getBean(HibernateDAO.class);
         hibernateDAO.saveUser(new User("Ruslan",14,"email12"));
         context.close();
+
     }
 }

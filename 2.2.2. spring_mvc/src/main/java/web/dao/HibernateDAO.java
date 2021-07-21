@@ -17,8 +17,8 @@ public class HibernateDAO implements DAO {
     @Transactional
     public void saveUser(User user) {
         entityManager.persist(user);
-        entityManager.close();
     }
+
 
     @Override
     @Transactional
@@ -28,7 +28,7 @@ public class HibernateDAO implements DAO {
 
     @Override
     @Transactional
-    public void removeUserById(int id) {
+    public void removeUserById(Long id) {
         User user = entityManager.find(User.class, id);
         if (user != null) {
             entityManager.remove(user);
@@ -40,7 +40,7 @@ public class HibernateDAO implements DAO {
         return entityManager.createQuery("SELECT user FROM User user", User.class).getResultList();
     }
 
-    public User getUserById(int id) {
+    public User getUserById(Long id) {
         return entityManager.find(User.class, id);
     }
 }
